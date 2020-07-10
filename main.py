@@ -26,7 +26,7 @@ KV = '''
             id: avatar
             size_hint: None, None
             size: "56dp", "56dp"
-            source: "kivymd_logo.png"
+            source: "info.png"
 
     MDLabel:
         text: "KivyMD library"
@@ -42,9 +42,6 @@ KV = '''
 
     ScrollView:
 
-        DrawerList:
-            id: md_list
-
         MDList:
 
             OneLineListItem:
@@ -58,6 +55,7 @@ KV = '''
                 on_press:
                     root.nav_drawer.set_state("close")
                     root.screen_manager.current = "scr 2"
+
                     
 # Menu item in the DrawerList list.
 <ItemDrawer>:
