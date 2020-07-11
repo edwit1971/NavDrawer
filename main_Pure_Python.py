@@ -10,16 +10,15 @@
 from kivy.core.window import Window
 from kivy.properties  import StringProperty
 
-from kivy.uix.widget        import Widget
-from kivy.uix.boxlayout     import BoxLayout
-from kivy.uix.scrollview    import ScrollView
-from kivy.uix.anchorlayout  import AnchorLayout
-from kivy.uix.screenmanager import ScreenManager
-from kivy.uix.screenmanager import Screen
+from kivy.uix.widget       import Widget
+from kivy.uix.boxlayout    import BoxLayout
+from kivy.uix.scrollview   import ScrollView
+from kivy.uix.anchorlayout import AnchorLayout
 
 from kivymd.app import MDApp
 
 from kivymd.theming              import ThemableBehavior
+from kivymd.theming              import ThemeManager
 from kivymd.uix.list             import MDList
 from kivymd.uix.list             import OneLineIconListItem
 from kivymd.uix.list             import IconLeftWidget
@@ -59,6 +58,11 @@ class ItemDrawer(OneLineIconListItem):
 ##############################################################
 
 class DrawerList(ThemableBehavior, MDList):
+    
+    ###################################
+    def __init__(self, **kwargs):
+        super(DrawerList, self).__init__(**kwargs)
+        return
 
     ###################################
     def set_color_item(self, pIT):
@@ -137,33 +141,26 @@ class ContentNavigationDrawer(BoxLayout):
 ##############################################################
 ##############################################################
 
+
 class LayoutsApp(MDApp):
-
-    nav_drawer = MDNavigationDrawer()
-    content_drawer = ContentNavigationDrawer()
-
+    
     ###################################
     def __init__(self, **kwargs):
+        LayoutsApp.theme_cls = ThemeManager()
+        LayoutsApp.theme_cls.theme_style = 'Light'
         super(LayoutsApp, self).__init__(**kwargs)
+        self.nav_drawer = MDNavigationDrawer()
         self.Screen1 = MDFloatLayout()
-        self.NLayout = NavigationLayout()
-        self.sm      = ScreenManager()
-        self.Scrn    = Screen(name='Screen1')
         self.BLay    = BoxLayout()
         self.MDTool  = MDToolbar()
         self.Widgy   = Widget()
+        self.NLayout = NavigationLayout()
+        self.content_drawer = ContentNavigationDrawer()
         return
 
     ###################################
-    def on_start(self):
-        icons_item = {"folder": "My files", \
-                      "account-multiple": "Shared with me", \
-                      "star": "Starred", \
-                      "history": "Recent", \
-                      "checkbox-marked": "Shared with me", \
-                      "upload": "Upload",}
-        for icon_name in icons_item.keys():
-            self.root.ids.content_drawer.ids.md_list.add_widget(ItemDrawer(icon=icon_name, text=icons_item[icon_name]))
+    def My_Callback(self, instance):
+        self.nav_drawer.set_state('toggle')
         return
 
     ###################################
@@ -175,18 +172,14 @@ class LayoutsApp(MDApp):
         self.BLay.orientation = 'vertical'
         self.MDTool.title     = 'Navigation Drawer'
         self.MDTool.elevation = 10
-        self.MDTool.left_action_items = ['info.png', lambda x: self.nav_drawer.set_state(new_state='open', animation=True)]
+        self.MDTool.left_action_items = [['menu', self.My_Callback]]
         ###############################
         if(self.MDTool.parent == None):
             self.BLay.add_widget(self.MDTool)
         if(self.Widgy.parent == None):
             self.BLay.add_widget(self.Widgy)
         if(self.BLay.parent == None):
-            self.Scrn.add_widget(self.BLay)
-        if(self.Scrn.parent == None):
-            self.sm.add_widget(self.Scrn)
-        if(self.sm.parent == None):
-            self.NLayout.add_widget(self.sm)
+            self.Screen1.add_widget(self.BLay)
         if(self.content_drawer.parent == None):
             self.nav_drawer.add_widget(self.content_drawer)
         if(self.nav_drawer.parent == None):
