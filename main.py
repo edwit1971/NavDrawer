@@ -7,6 +7,8 @@
 #############################################################
 
 
+from kivy.graphics.context_instructions import Color
+
 from kivy.core.window import Window
 from kivy.properties  import StringProperty
 
@@ -94,7 +96,12 @@ class ContentNavigationDrawer(BoxLayout):
         ###############################
         self.Anchor1 = AnchorLayout()
         self.Label1  = MDLabel()
+        self.LSpace  = MDLabel()
         self.Label2  = MDLabel()
+        self.Label3  = MDLabel()
+        self.Label4  = MDLabel()
+        self.Label5  = MDLabel()
+        self.Label6  = MDLabel()
         self.Scrll   = ScrollView()
         ###############################
         self.List1 = DrawerList()
@@ -104,26 +111,63 @@ class ContentNavigationDrawer(BoxLayout):
 
     ###################################
     def Initialize(self):
+        LHeight = int(Window.height / 15)
         ###############################
         self.Anchor1.anchor_x    = 'left'
         self.Anchor1.size_hint_y = None
-        self.Anchor1.height      = '56dp'
+        self.Anchor1.height      = int(LHeight * 1.25)
         if(self.Anchor1.parent == None):
             self.add_widget(self.Anchor1)
         ###
-        self.Label1.text        = 'KivyMD library'
-        self.Label1.font_style  = 'Button'
+        self.Label1.text        = 'WeightLoss App'
+        self.Label1.font_style  = 'H5'
         self.Label1.size_hint_y = None
-        self.Label1.height      = self.Label1.texture_size[1]
+        self.Label1.height      = int(LHeight * 0.9)
         if(self.Label1.parent == None):
             self.add_widget(self.Label1)
         ###
-        self.Label2.text        = 'kivydevelopment@gmail.com'
-        self.Label2.font_style  = 'Caption'
+        self.Label2.text        = 'Current User = Cheecha'
+        self.Label2.font_style  = 'Subtitle2'
         self.Label2.size_hint_y = None
-        self.Label2.height      = self.Label2.texture_size[1]
+        self.Label2.height      = int(LHeight * 0.5)
+        self.Label2.text_color  = (0, 1, 1, 1)
         if(self.Label2.parent == None):
             self.add_widget(self.Label2)
+        ###
+        self.LSpace.text        = ''
+        self.LSpace.font_style  = 'Button'
+        self.LSpace.size_hint_y = None
+        self.LSpace.height      = int(LHeight * 0.75)
+        if(self.LSpace.parent == None):
+            self.add_widget(self.LSpace)
+        ###
+        self.Label3.text        = 'Users'
+        self.Label3.font_style  = 'Caption'
+        self.Label3.size_hint_y = None
+        self.Label3.height      = LHeight
+        if(self.Label3.parent == None):
+            self.add_widget(self.Label3)
+        ###
+        self.Label4.text        = 'Database Import'
+        self.Label4.font_style  = 'Caption'
+        self.Label4.size_hint_y = None
+        self.Label4.height      = LHeight
+        if(self.Label4.parent == None):
+            self.add_widget(self.Label4)
+        ###
+        self.Label5.text        = 'Database Export'
+        self.Label5.font_style  = 'Caption'
+        self.Label5.size_hint_y = None
+        self.Label5.height      = LHeight
+        if(self.Label5.parent == None):
+            self.add_widget(self.Label5)
+        ###
+        self.Label6.text        = 'About'
+        self.Label6.font_style  = 'Caption'
+        self.Label6.size_hint_y = None
+        self.Label6.height      = LHeight
+        if(self.Label6.parent == None):
+            self.add_widget(self.Label6)
         ###############################
         self.Pic1.size_hint = (None, None)
         self.Pic1.size.x = '56dp'
@@ -168,6 +212,7 @@ class LayoutsApp(MDApp):
         ###############################
         self.Screen1.size = Window.size
         self.NLayout.size = self.Screen1.size
+        self.NLayout._scrim_color = Color(rgba=[0, 0, 0, 0]) # Necessary to avoid Exception
         self.BLay.size    = self.Screen1.size
         self.BLay.orientation = 'vertical'
         self.MDTool.title     = 'Navigation Drawer'
