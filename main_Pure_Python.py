@@ -19,7 +19,6 @@ from kivy.uix.anchorlayout import AnchorLayout
 
 from kivymd.app import MDApp
 
-from kivymd.theming              import ThemeManager
 from kivymd.uix.label            import MDLabel
 from kivymd.uix.toolbar          import MDToolbar
 from kivymd.uix.floatlayout      import MDFloatLayout
@@ -49,7 +48,6 @@ class ContentNavigationDrawer(BoxLayout):
         self.Label5  = MDLabel()
         self.Label6  = MDLabel()
         self.Scrll   = ScrollView()
-        #self.List1 = DrawerList()
         self.Pic1  = Image(source = 'icon.png')
         ###############################
         return
@@ -122,8 +120,6 @@ class ContentNavigationDrawer(BoxLayout):
         if(self.Label6.parent == None):
             self.add_widget(self.Label6)
         ###############################
-        #if(self.List1.parent == None):
-        #    self.Scrll.add_widget(self.List1)
         if(self.Scrll.parent == None):
             self.add_widget(self.Scrll)
         ###############################
@@ -137,8 +133,6 @@ class LayoutsApp(MDApp):
     
     ###################################
     def __init__(self, **kwargs):
-        LayoutsApp.theme_cls = ThemeManager()
-        LayoutsApp.theme_cls.theme_style = 'Light'
         super(LayoutsApp, self).__init__(**kwargs)
         self.nav_drawer = MDNavigationDrawer()
         self.Screen1 = MDFloatLayout()
@@ -160,7 +154,7 @@ class LayoutsApp(MDApp):
         self.Screen1.size = Window.size
         self.NLayout.size = self.Screen1.size
         self.NLayout._scrim_color = Color(rgba=[0, 0, 0, 0]) # Necessary to avoid Exception
-        self.BLay.size    = self.Screen1.size
+        self.BLay.size        = self.Screen1.size
         self.BLay.orientation = 'vertical'
         self.MDTool.title     = 'Navigation Drawer'
         self.MDTool.elevation = 10
