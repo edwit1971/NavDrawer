@@ -30,9 +30,6 @@ from kivymd.uix.floatlayout      import MDFloatLayout
 from kivymd.uix.navigationdrawer import NavigationLayout
 from kivymd.uix.navigationdrawer import MDNavigationDrawer
 
-#from kivymd.theming  import ThemeManager
-#from kivymd.uix.button import MDRectangleFlatIconButton
-
 
 ##############################################################
 ##############################################################
@@ -62,13 +59,14 @@ class ItemDrawer(OneLineIconListItem):
     icon = StringProperty()
 
     ###################################
-    def __init__(self, **kwargs):
+    def __init__(self, pIcon, pText, **kwargs):
         super(ItemDrawer, self).__init__(**kwargs)
         self.theme_text_color = 'Custom'
-        self.icon = IconLeftWidget(icon='info.png', \
-                                   theme_text_color = 'Custom', \
-                                   text_color = (1, 0, 0, 1))
+        self.text = pText
         self.bind(on_release = self.Press_ItemDrawer)
+        ItemDrawer.icon = IconLeftWidget(icon = pIcon, \
+                                   theme_text_color = 'Custom', \
+                                   text_color = self.text_color)
         if(self.icon.parent == None):
             self.add_widget(self.icon)
         return
@@ -95,7 +93,7 @@ class ContentNavigationDrawer(BoxLayout):
         self.Label1  = MDLabel()
         self.Label2  = MDLabel()
         self.Scrll   = ScrollView()
-        self.DList   = DrawerList()
+        self.DrwList = DrawerList()
         self.Pic1    = Image(source = 'icon.png')
         ###############################
         return
@@ -114,7 +112,7 @@ class ContentNavigationDrawer(BoxLayout):
         ###############################
         self.Anchor1.anchor_x    = 'left'
         self.Anchor1.size_hint_y = None
-        self.Anchor1.height      = int(LHeight * 1.25)
+        self.Anchor1.height      = int(LHeight * 2)
         if(self.Anchor1.parent == None):
             self.add_widget(self.Anchor1)
         ###
@@ -126,7 +124,7 @@ class ContentNavigationDrawer(BoxLayout):
         if(self.Label1.parent == None):
             self.add_widget(self.Label1)
         ###
-        self.Label2.text        = 'Current User = Cheecha'
+        self.Label2.text        = 'Current User = Monkey'
         self.Label2.font_style  = 'Subtitle2'
         self.Label2.size_hint_y = None
         self.Label2.height      = int(LHeight * 0.4)
@@ -134,15 +132,20 @@ class ContentNavigationDrawer(BoxLayout):
         if(self.Label2.parent == None):
             self.add_widget(self.Label2)
         ###
-        icons_item = {"face": "Users", \
-                      "folder": "DB Import", \
-                      "folder-download": "DB Export", \
-                      "information": "About"}
+        icons_item = {'face': 'Users', \
+                      'folder': 'DB Import', \
+                      'folder-download': 'DB Export', \
+                      'information': 'About'}
+        ######################################
+        #
+        # Add on_release to end of ItemDrawer
+        # to bind callback function
+        #
         for icon_name in icons_item.keys():
-            self.root.ids.content_drawer.ids.DList.add_widget(ItemDrawer(icon=icon_name, text=icons_item[icon_name]))
+            self.DrwList.add_widget(ItemDrawer(pIcon = icon_name, pText = icons_item[icon_name]))
         ###############################
-        if(self.DList.parent == None):
-            self.Scrll.add_widget(self.DList)
+        if(self.DrwList.parent == None):
+            self.Scrll.add_widget(self.DrwList)
         if(self.Scrll.parent == None):
             self.add_widget(self.Scrll)
         ###############################
