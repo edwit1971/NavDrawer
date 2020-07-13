@@ -65,10 +65,10 @@ class ItemDrawer(OneLineIconListItem):
         self.text = pText
         self.bind(on_release = self.Press_ItemDrawer)
         ItemDrawer.icon = IconLeftWidget(icon = pIcon, \
-                                   theme_text_color = 'Custom', \
-                                   text_color = self.text_color)
-        if(self.icon.parent == None):
-            self.add_widget(self.icon)
+                                         theme_text_color = 'Custom', \
+                                         text_color = self.text_color)
+        if(ItemDrawer.icon.parent == None):
+            self.add_widget(ItemDrawer.icon)
         return
 
     ###################################
